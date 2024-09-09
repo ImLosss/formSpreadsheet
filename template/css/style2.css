@@ -1,0 +1,61 @@
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    max-width: 100%;
+    padding: 20px;
+    margin: 0 auto;
+  }
+
+  .mb-3 {
+    margin-bottom: 15px;
+  }
+
+  input, label {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    font-size: 16px;
+  }
+
+  input[type="file"] {
+    padding: 3px; /* untuk file input padding lebih kecil */
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: green;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  /* Media Query untuk layar yang lebih kecil seperti smartphone */
+  @media (max-width: 600px) {
+    form {
+      padding: 10px;
+    }
+
+    input, label {
+      font-size: 14px;
+    }
+
+    .btn {
+      font-size: 16px;
+    }
+  }
+
