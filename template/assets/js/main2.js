@@ -29,42 +29,55 @@ $('#btnSubmit').on('click', function () {
         }
 
         Swal.fire({
-            title: "Loading...",
-            html: "Data kamu sedang dikirim, mohon menunggu.",
-            allowOutsideClick: false, // Prevent closing by clicking outside the alert
-            didOpen: () => {
-                Swal.showLoading(); // Menampilkan animasi loading
+            title: "Apakah kamu yakin?",
+            text: "Pastikan data kamu sudah benar!",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Kirim",
+            cancelButtonText: "Batal"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Loading...",
+                    html: "Data kamu sedang dikirim, mohon menunggu.",
+                    allowOutsideClick: false, // Prevent closing by clicking outside the alert
+                    didOpen: () => {
+                        Swal.showLoading(); // Menampilkan animasi loading
+                    }
+                });
+
+                fetch("https://script.google.com/macros/s/AKfycbypxWQ_dujtK2CHxS0ynrUDUkOvOKIjtTk6F1EXrwmgtr08c_TaZ9lbfPExREPE0-XV/exec", {
+                    method: "POST",
+                    body: JSON.stringify(formdata)
+                })
+                .then(r => r.text())
+                .then(data => {
+                    Swal.close();
+    
+                    if (data == "Berhasil upload") {
+                        document.getElementById("myForm").reset()
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Data kamu berhasil dikirim!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    } else {
+                        console.log(data);
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Terjadi kesalahan saat mengirim data kamu, hubungi kami!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                })
             }
         });
-
-        fetch("https://script.google.com/macros/s/AKfycbypxWQ_dujtK2CHxS0ynrUDUkOvOKIjtTk6F1EXrwmgtr08c_TaZ9lbfPExREPE0-XV/exec", {
-            method: "POST",
-            body: JSON.stringify(formdata)
-        })
-        .then(r => r.text())
-        .then(data => {
-            Swal.close();
-
-            if (data == "Berhasil upload") {
-                document.getElementById("myForm").reset()
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Data kamu berhasil dikirim!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            } else {
-                console.log(data);
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'Terjadi kesalahan saat mengirim data kamu, hubungi kami!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            }
-        })
     }
 });
 
