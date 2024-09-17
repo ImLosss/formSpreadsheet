@@ -19,16 +19,19 @@ function doPost(e){
     var sheet = ss.getSheetByName(sh)
     var lr = sheet.getLastRow() - 1
     if(formObject.sertifikat) {
-      var file = superscript.uploadFile(folderPelatihan,formObject.sertifikat.data,`SertifikatPelatihan${ lr }_${ formObject.nama }`)
-      fileLink = file.getUrl()
+      var fileName = `SertifikatPelatihan${ lr }_${ formObject.nama }`
+      var file = superscript.uploadFile(folderPelatihan,formObject.sertifikat.data,fileName)
+      fileLink = `=HYPERLINK("${file.getUrl()}"; "${fileName}")`
     }
     if(formObject.cv) {
-      var file2 = superscript.uploadFile(folderCV,formObject.cv.data,`CV${ lr }_${ formObject.nama }`)
-      fileLink2 = file2.getUrl()
+      var fileName2 = `CV${ lr }_${ formObject.nama }`
+      var file2 = superscript.uploadFile(folderCV,formObject.cv.data,fileName2)
+      fileLink2 = `=HYPERLINK("${file2.getUrl()}"; "${fileName2}")`
     }
     if(formObject.upload_ska_skk) {
-      var file3 = superscript.uploadFile(folderSKK,formObject.upload_ska_skk.data,`SKA_SKK${ lr }_${ formObject.nama }`)
-      fileLink3 = file3.getUrl()
+      var fileName3 = `SKA_SKK${ lr }_${ formObject.nama }`
+      var file3 = superscript.uploadFile(folderSKK,formObject.upload_ska_skk.data,fileName3)
+      fileLink3 = `=HYPERLINK("${file3.getUrl()}"; "${fileName3}")`
     }
     sheet.appendRow([
       lr,
@@ -45,7 +48,7 @@ function doPost(e){
       formObject.masa_berlaku_ska_skk ? formObject.masa_berlaku_ska_skk : '-',
       fileLink3,
       fileLink,
-      fileLink2
+      fileLink2,
     ]);
     return ContentService.createTextOutput("Berhasil upload")
   } catch(e) {
