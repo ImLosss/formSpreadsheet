@@ -18,7 +18,6 @@ function doPost(e){
     var ss= SpreadsheetApp.openByUrl(url)
     var sheet = ss.getSheetByName(sh)
     var lr = sheet.getLastRow() - 1
-    var ws=ss.getSheets()[0]
     if(formObject.sertifikat) {
       var file = superscript.uploadFile(folderPelatihan,formObject.sertifikat.data,`SertifikatPelatihan${ lr }_${ formObject.nama }`)
       fileLink = file.getUrl()
@@ -31,7 +30,7 @@ function doPost(e){
       var file3 = superscript.uploadFile(folderSKK,formObject.upload_ska_skk.data,`SKA_SKK${ lr }_${ formObject.nama }`)
       fileLink3 = file3.getUrl()
     }
-    ws.appendRow([
+    sheet.appendRow([
       lr,
       new Date(),
       formObject.nama,
